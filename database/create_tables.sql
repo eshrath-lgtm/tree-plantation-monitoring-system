@@ -1,55 +1,45 @@
--- Tree Plantation and Monitoring Management System
--- Initial database schema
--- Member 1: Database and Backend
-
 CREATE DATABASE IF NOT EXISTS tree_plantation;
 
 USE tree_plantation;
 
--- 1. Tree Species
-CREATE TABLE tree_species (
+DROP TABLE IF EXISTS tree_condition;
+DROP TABLE IF EXISTS plantations;
+DROP TABLE IF EXISTS persons_organizations;
+DROP TABLE IF EXISTS locations;
+DROP TABLE IF EXISTS tree_species;
+
+CREATE TABLE species (
     species_id INT AUTO_INCREMENT PRIMARY KEY,
-    species_name VARCHAR(100) NOT NULL,
-    description VARCHAR(255)
+    common_name VARCHAR(100) NOT NULL,
+    scientific_name VARCHAR(100),
+    species_type VARCHAR(50)
 );
 
--- 2. Plantation Locations
-CREATE TABLE locations (
+CREATE TABLE location (
     location_id INT AUTO_INCREMENT PRIMARY KEY,
-    location_name VARCHAR(100) NOT NULL,
-    address VARCHAR(255)
+    name VARCHAR(100) NOT NULL,
+    area VARCHAR(100),
+    place_type VARCHAR(50)
 );
 
--- 3. People and Organizations
-CREATE TABLE persons_organizations (
+CREATE TABLE planter (
     planter_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    type VARCHAR(20) NOT NULL,
-    contact_info VARCHAR(100)
+    kind VARCHAR(50),
+    contact VARCHAR(100)
 );
 
--- 4. Plantation Records
-CREATE TABLE plantations (
+CREATE TABLE plantation (
     plantation_id INT AUTO_INCREMENT PRIMARY KEY,
     species_id INT NOT NULL,
     location_id INT NOT NULL,
     planter_id INT NOT NULL,
     plantation_date DATE NOT NULL,
     tree_count INT NOT NULL,
-    FOREIGN KEY (species_id)
-        REFERENCES tree_species(species_id),
-    FOREIGN KEY (location_id)
-        REFERENCES locations(location_id),
-    FOREIGN KEY (planter_id)
-        REFERENCES persons_organizations(planter_id)
-);
-
--- 5. Tree Condition Monitoring
-CREATE TABLE tree_condition (
-    condition_id INT AUTO_INCREMENT PRIMARY KEY,
-    plantation_id INT NOT NULL,
-    condition_status VARCHAR(20) NOT NULL,
-    monitoring_date DATE NOT NULL,
-    FOREIGN KEY (plantation_id)
-        REFERENCES plantations(plantation_id)
+    tree_condition VARCHAR(20) NOT NULL DEFAULT 'Healthy',
+    last_checked DATE,
+    note VARCHAR(255),
+    FOREIGN KEY (species_id) REFERENCES species(species_id),
+    FOREIGN KEY (location_id) REFERENCES location(location_id),
+    FOREIGN KEY (planter_id) REFERENCES planter(planter_id)
 );
