@@ -2,9 +2,9 @@
 -- Initial database schema
 -- Member 1: Database and Backend
 
-CREATE DATABASE IF NOT EXISTS tree_plantation_db;
+CREATE DATABASE IF NOT EXISTS tree_plantation;
 
-USE tree_plantation_db;
+USE tree_plantation;
 
 -- 1. Tree Species
 CREATE TABLE tree_species (
