@@ -48,3 +48,12 @@ WHERE plantation_id = @test_id;
 
 -- Verify DELETE
 SELECT * FROM plantation;
+
+-- 7. Verify All Table Data
+SELECT * FROM species;
+
+SELECT * FROM location;
+
+SELECT * FROM planter;
+
+SELECT * FROM plantation;
