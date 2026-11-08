@@ -1,62 +1,67 @@
-# Tree Plantation and Monitoring Management System
-## Database Design
+Tree Plantation and Monitoring Management System
 
-### 1. tree_species
-Stores information about different tree species.
+Database Design
 
-| Column | Data Type | Key |
-|---|---|---|
-| species_id | INT | Primary Key |
-| species_name | VARCHAR(100) | |
-| description | VARCHAR(255) | |
+Database Name: "tree_plantation"
 
-### 2. locations
-Stores plantation locations.
+Technology: MySQL
 
-| Column | Data Type | Key |
-|---|---|---|
-| location_id | INT | Primary Key |
-| location_name | VARCHAR(100) | |
-| address | VARCHAR(255) | |
+1. Tables
 
-### 3. persons_organizations
-Stores information about people and organizations involved in planting.
+The database contains four tables:
 
-| Column | Data Type | Key |
-|---|---|---|
-| planter_id | INT | Primary Key |
-| name | VARCHAR(100) | |
-| type | VARCHAR(20) | |
-| contact_info | VARCHAR(100) | |
+1. species
 
-### 4. plantations
-Stores plantation activities.
+- "species_id" – Primary Key
+- "common_name"
+- "scientific_name"
+- "species_type"
 
-| Column | Data Type | Key |
-|---|---|---|
-| plantation_id | INT | Primary Key |
-| species_id | INT | Foreign Key |
-| location_id | INT | Foreign Key |
-| planter_id | INT | Foreign Key |
-| plantation_date | DATE | |
-| tree_count | INT | |
+2. location
 
-### 5. tree_condition
-Stores plantation monitoring records.
+- "location_id" – Primary Key
+- "name"
+- "area"
+- "place_type"
 
-| Column | Data Type | Key |
-|---|---|---|
-| condition_id | INT | Primary Key |
-| plantation_id | INT | Foreign Key |
-| condition_status | VARCHAR(20) | |
-| monitoring_date | DATE | |
+3. planter
 
-## Relationships
-- One tree species can appear in many plantation records.
-- One location can have many plantation records.
-- One person or organization can be associated with many plantation records.
-- One plantation can have multiple monitoring records.
+- "planter_id" – Primary Key
+- "name"
+- "kind"
+- "contact"
 
-## Current Status
-Initial database structure designed.
-SQL implementation and testing are pending.
+4. plantation
+
+- "plantation_id" – Primary Key
+- "species_id" – Foreign Key
+- "location_id" – Foreign Key
+- "planter_id" – Foreign Key
+- "plantation_date"
+- "tree_count"
+- "tree_condition"
+- "last_checked"
+- "note"
+
+2. Primary Keys
+
+- "species.species_id"
+- "location.location_id"
+- "planter.planter_id"
+- "plantation.plantation_id"
+
+3. Foreign Keys
+
+- "plantation.species_id" references "species.species_id"
+- "plantation.location_id" references "location.location_id"
+- "plantation.planter_id" references "planter.planter_id"
+
+4. Relationships
+
+- One species can have multiple plantation records.
+- One location can have multiple plantation records.
+- One planter can have multiple plantation records.
+
+5. Purpose
+
+This database stores tree species, plantation locations, planters, and plantation monitoring information. It helps track the number of planted trees and their conditions, such as Healthy, Weak, Damaged, and Dead.
