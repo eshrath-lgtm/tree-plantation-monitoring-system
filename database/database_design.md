@@ -6,62 +6,56 @@ Database Name: "tree_plantation"
 
 Technology: MySQL
 
-1. Tables
+1. Species Table
 
-The database contains four tables:
+Column Name| Data Type| Constraint
+species_id| INT| Primary Key, Auto Increment
+common_name| VARCHAR(100)| NOT NULL
+scientific_name| VARCHAR(100)| -
+species_type| VARCHAR(50)| -
 
-1. species
+2. Location Table
 
-- "species_id" – Primary Key
-- "common_name"
-- "scientific_name"
-- "species_type"
+Column Name| Data Type| Constraint
+location_id| INT| Primary Key, Auto Increment
+name| VARCHAR(100)| NOT NULL
+area| VARCHAR(100)| -
+place_type| VARCHAR(50)| -
 
-2. location
+3. Planter Table
 
-- "location_id" – Primary Key
-- "name"
-- "area"
-- "place_type"
+Column Name| Data Type| Constraint
+planter_id| INT| Primary Key, Auto Increment
+name| VARCHAR(100)| NOT NULL
+kind| VARCHAR(50)| -
+contact| VARCHAR(100)| -
 
-3. planter
+4. Plantation Table
 
-- "planter_id" – Primary Key
-- "name"
-- "kind"
-- "contact"
+Column Name| Data Type| Constraint
+plantation_id| INT| Primary Key, Auto Increment
+species_id| INT| Foreign Key
+location_id| INT| Foreign Key
+planter_id| INT| Foreign Key
+plantation_date| DATE| NOT NULL
+tree_count| INT| NOT NULL
+tree_condition| VARCHAR(20)| NOT NULL, Default: Healthy
+last_checked| DATE| -
+note| VARCHAR(255)| -
 
-4. plantation
+5. Foreign Key Relationships
 
-- "plantation_id" – Primary Key
-- "species_id" – Foreign Key
-- "location_id" – Foreign Key
-- "planter_id" – Foreign Key
-- "plantation_date"
-- "tree_count"
-- "tree_condition"
-- "last_checked"
-- "note"
+Foreign Key| References
+plantation.species_id| species.species_id
+plantation.location_id| location.location_id
+plantation.planter_id| planter.planter_id
 
-2. Primary Keys
-
-- "species.species_id"
-- "location.location_id"
-- "planter.planter_id"
-- "plantation.plantation_id"
-
-3. Foreign Keys
-
-- "plantation.species_id" references "species.species_id"
-- "plantation.location_id" references "location.location_id"
-- "plantation.planter_id" references "planter.planter_id"
-
-4. Relationships
+6. Relationships
 
 - One species can have multiple plantation records.
 - One location can have multiple plantation records.
 - One planter can have multiple plantation records.
 
-5. Purpose
+7. Purpose
 
 This database stores tree species, plantation locations, planters, and plantation monitoring information. It helps track the number of planted trees and their conditions, such as Healthy, Weak, Damaged, and Dead.
